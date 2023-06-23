@@ -5,6 +5,7 @@
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <Version>1.0.0</Version>
   </PropertyGroup>
   
   <ItemGroup>

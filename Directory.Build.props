@@ -5,10 +5,25 @@
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <Version>1.1.0</Version>
+    <Version>2.5.0</Version>
+    <AssemblyVersion>$([System.Version]::Parse($(Version)).ToString(1)).0.0.0</AssemblyVersion>
   </PropertyGroup>
+
+  <Choose>
+    <When Condition="$(GITHUB_RUN_ID) == ''">
+      <PropertyGroup>
+        <FileVersion>$(Version).0</FileVersion>
+      </PropertyGroup>
+    </When>
+    <Otherwise>
+      <PropertyGroup>
+        <FileVersion>$(Version).$(GITHUB_RUN_ID)</FileVersion>
+      </PropertyGroup>
+    </Otherwise>
+  </Choose>
   
   <ItemGroup>
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
   </ItemGroup>
 </Project>
+

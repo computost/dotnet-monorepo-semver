@@ -9,10 +9,23 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - run: |
+      - name: Configure git
+        run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
         name: git config
-      - run: dotnet tool install -g versionize
-      - run: versionize --changelog-all
-      - run: git push --follow-tags
+      - name: Install versionize
+        run: dotnet tool install --global versionize
+
+      - name: Run versionize
+        continue-on-error: true
+        id: versionize
+        run: versionize --changelog-all --exit-insignificant-commits
+
+      - name: No release required
+        if: steps.versionize.outcome != 'success'
+        run: echo "Skipping publishing. No release required."
+
+      - name: Push changes to GitHub
+        if: steps.versionize.outcome == 'success'
+        run: git push --follow-tags

@@ -8,6 +8,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          fetch-depth: 1
+          fetch-depth: 0
       - run: dotnet tool install -g versionize
       - run: versionize

@@ -14,5 +14,5 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
         name: git config
       - run: dotnet tool install -g versionize
-      - run: versionize
+      - run: versionize --changelog-all
       - run: git push --follow-tags

@@ -7,5 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
       - run: dotnet tool install -g versionize
       - run: versionize

@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [versionize](https://github.com/versionize/versionize) for commit guidelines.
 
+<a name="2.6.2"></a>
+## [2.6.2](https://www.github.com/computost/dotnet-monorepo-semver/releases/tag/v2.6.2) (2023-6-27)
+
+### Bug Fixes
+
+* Build package ([794bc8a](https://www.github.com/computost/dotnet-monorepo-semver/commit/794bc8ac5de1e6cbe25f2a0b2a7fd491d88d7f7a))
+
+### Other
+
+* changelog-all ([3a3edfa](https://www.github.com/computost/dotnet-monorepo-semver/commit/3a3edfa41a582f53873a6a0a61ffc14e20000b34))
+* minor syntax fix ([f35f5f0](https://www.github.com/computost/dotnet-monorepo-semver/commit/f35f5f04006fc34f641e21608848d9daeba3c993))
+* only versionize on significant commits ([a05da7b](https://www.github.com/computost/dotnet-monorepo-semver/commit/a05da7b37e4798370ba9e71cb114f4437a75265e))
+* renamed bump to publish ([88b7768](https://www.github.com/computost/dotnet-monorepo-semver/commit/88b776874dd349689d2bfbc500a13c04b1225b54))
+
 <a name="2.6.1"></a>
 ## [2.6.1](https://www.github.com/computost/dotnet-monorepo-semver/releases/tag/v2.6.1) (2023-6-27)
 

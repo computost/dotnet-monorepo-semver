@@ -27,6 +27,9 @@ jobs:
         if: steps.versionize.outcome != 'success'
         run: echo "Skipping publishing. No release required."
 
+      - name: Build package
+        if: steps.versionize.outcome == 'success'
+        run: dotnet pack --output nupkgs --include-source --configuration Release --include-symbols
       - name: Push changes to GitHub
         if: steps.versionize.outcome == 'success'
         run: git push --follow-tags

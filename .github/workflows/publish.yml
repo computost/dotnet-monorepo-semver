@@ -1,3 +1,5 @@
+name: publish
+
 on:
   push:
     branches: [main]
@@ -13,7 +15,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-        name: git config
       - name: Install versionize
         run: dotnet tool install --global versionize
 

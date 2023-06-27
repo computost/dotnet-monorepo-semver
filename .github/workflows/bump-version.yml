@@ -1,0 +1,10 @@
+on:
+  push:
+    branches: [main]
+
+jobs:
+  bump-version:
+    runs-on: ubuntu-latest
+    steps:
+      - run: dotnet tool install -g versionize
+      - run: versionize

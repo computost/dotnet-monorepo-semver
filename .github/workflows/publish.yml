@@ -5,7 +5,7 @@ on:
     branches: [main]
 
 jobs:
-  bump-version:
+  publish:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -15,6 +15,13 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - name: Authenticate to GitHub Packages
+        run: |
+          dotnet nuget add source \
+            --username "github-actions[bot]" \
+            --password ${{ secrets.GITHUB_TOKEN }} \
+            --store-password-in-clear-text \
+            --name github "https://nuget.pkg.github.com/computost/index.json"
       - name: Install versionize
         run: dotnet tool install --global versionize
 
@@ -30,6 +37,12 @@ jobs:
       - name: Build package
         if: steps.versionize.outcome == 'success'
         run: dotnet pack --output nupkgs --include-source --configuration Release --include-symbols
+      - name: Push NuGet packages
+        run: |
+          for path in $(find . -path "*.nupkg")
+          do
+            dotnet nuget push $path --source "github"
+          done
       - name: Push changes to GitHub
         if: steps.versionize.outcome == 'success'
         run: git push --follow-tags

@@ -1,6 +1,5 @@
 <Project>
   <PropertyGroup>
-    <AssemblyVersion>$([System.Version]::Parse($(Version)).ToString(1)).0.0.0</AssemblyVersion>
     <Company>Computost Consulting</Company>
     <Deterministic>true</Deterministic>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
@@ -9,6 +8,7 @@
     <RepositoryUrl>https://github.com/computost/dotnet-monorepo-semver</RepositoryUrl>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <Version>2.6.2</Version>
+    <AssemblyVersion>$([System.Version]::Parse($(Version)).ToString(1)).0.0.0</AssemblyVersion>
   </PropertyGroup>
 
   <Choose>

@@ -16,7 +16,12 @@ jobs:
         with:
           dotnet-version: "6.0.x"
       - name: Test
-        run: dotnet test --logger "trx" /p:CollectCoverage=true /p:CoverletOutputFormat=lcov /p:CoverletOutput=../CoverageResults/lcov.info
+        run: |
+          dotnet test --logger "trx" \
+            /p:CollectCoverage=true \
+            /p:CoverletOutputFormat=lcov \
+            /p:CoverletOutput=../CoverageResults/ \
+            /p:MergeWith=../CoverageResults/
       - name: Upload Test Report
         if: success() || failure()
         uses: dorny/test-reporter@v1
@@ -29,4 +34,4 @@ jobs:
         uses: romeovs/lcov-reporter-action@v0.2.16
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          lcov-file: ./test/CoverageResults/lcov.info
+          lcov-file: ./test/CoverageResults/coverage.info

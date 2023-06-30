@@ -1,7 +1,7 @@
 /.vs
 /nupkgs
 /src/**/bin
-/test/CoverageResults/lcov.info
+/test/CoverageResults/coverage.info
 /test/*/TestResults
 /**/bin
 /**/obj

@@ -1,7 +1,7 @@
 /.vs
 /nupkgs
 /src/**/bin
-/test/*/coverage.cobertura.xml
+/test/coverage
 /test/*/TestResults
 /**/bin
 /**/obj

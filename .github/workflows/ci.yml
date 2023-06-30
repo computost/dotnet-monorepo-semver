@@ -28,7 +28,7 @@ jobs:
             /p:CollectCoverage=true \
             /p:CoverletOutput=../coverage/ \
             /p:CoverletOutputFormat=\"cobertura,json\" \
-            /p:CoverletOutput=../coverage/coverage.json \
+            /p:MergeWith=../coverage/coverage.json \
             -m:1
 
       - name: Upload Test Report

@@ -18,7 +18,7 @@ jobs:
       - name: Test
         run: dotnet test --logger "trx" /p:CollectCoverage=true /p:CoverletOutputFormat=lcov
       - name: Test Report
-        uses: uses: dorny/test-reporter@v1
+        uses: dorny/test-reporter@v1
         if: success() || failure()
         with:
           name: test-results

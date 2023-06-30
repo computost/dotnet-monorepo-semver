@@ -8,9 +8,6 @@ on:
 
 jobs:
   ci:
-    permissions:
-      actions: write
-      pull-requests: write
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -31,4 +28,5 @@ jobs:
         if: success() || failure()
         uses: romeovs/lcov-reporter-action@v0.2.16
         with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           lcov-file: ./test/CoverageResults/lcov.info

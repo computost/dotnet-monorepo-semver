@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup .NET Core 6.0
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: "6.0.x"
+      - name: Test
+        run: dotnet test --logger "trx" /p:CollectCoverage=true /p:CoverletOutputFormat=lcov
+      - name: Upload Test Results
+        uses: actions/upload-artifact@v3
+        if: success() || failure()
+        with:
+          name: test-results
+          path: test/*.Tests/TestResults/*.trx

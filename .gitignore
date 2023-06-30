@@ -1,4 +1,7 @@
 /.vs
+/nupkgs
+/src/**/bin
+/**/*.sln
+/**/*.sln.DotSettings.user
 /**/bin
 /**/obj
-**/*.sln

@@ -19,7 +19,7 @@
     </When>
     <Otherwise>
       <PropertyGroup>
-        <FileVersion>$(Version).$(GITHUB_RUN_ID)</FileVersion>
+        <FileVersion>$(Version).$([MSBuild]::Modulo($(GITHUB_RUN_ID), 65536))</FileVersion>
       </PropertyGroup>
     </Otherwise>
   </Choose>

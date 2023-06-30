@@ -1,7 +1,14 @@
 name: publish
 
+env:
+  PACKAGES: |
+    HighLevel
+    LowLevel
+
 on:
-  push:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
     branches: [main]
 
 jobs:
@@ -38,10 +45,11 @@ jobs:
         if: steps.versionize.outcome == 'success'
         run: dotnet pack --output nupkgs --include-source --configuration Release --include-symbols
       - name: Push NuGet packages
+        if: steps.versionize.outcome == 'success'
         run: |
-          for path in $(find . -path "*.nupkg")
+          for package in $PACKAGES
           do
-            dotnet nuget push $path --source "github"
+            dotnet nuget push $(find ./nupkgs -regex "^\\./nupkgs/$(echo $package)\\.[0-9]+\\.[0-9]+\\.[0-9]+\\.nupkg$") --source "github"
           done
       - name: Push changes to GitHub
         if: steps.versionize.outcome == 'success'

@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  ci:
+    permissions:
+      actions: write
+      checks: write
+      contents: write
+      pull-requests: write
+      statuses: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup .NET Core 6.0
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: "6.0.x"
+
+      - name: Test
+        run: |
+          dotnet test --logger "trx" \
+            /p:CollectCoverage=true \
+            /p:CoverletOutput=../coverage/ \
+            /p:CoverletOutputFormat=\"cobertura,json\" \
+            /p:MergeWith=../coverage/coverage.json \
+            -m:1
+
+      - name: Upload Test Report
+        if: success() || failure()
+        uses: dorny/test-reporter@v1
+        with:
+          name: test-results
+          path: test/*.Tests/TestResults/*.trx
+          reporter: dotnet-trx
+
+      - name: Generate Coverage Report
+        if: success() || failure()
+        uses: irongut/CodeCoverageSummary@v1.3.0
+        with:
+          badge: true
+          filename: ./test/coverage/coverage.cobertura.xml
+          format: markdown
+          output: both
+      - name: Add Coverage PR Comment
+        uses: marocchino/sticky-pull-request-comment@v2
+        if: github.event_name == 'pull_request'
+        with:
+          recreate: true
+          path: code-coverage-results.md

@@ -1,4 +1,7 @@
-﻿using LowLevel;
+﻿using System;
+using System.Threading.Tasks;
+using Internal;
+using LowLevel;
 
 namespace HighLevel;
 public class Stopwatch
@@ -10,10 +13,9 @@ public class Stopwatch
         _dateTimeProvider = dateTimeProvider;
     }
     
-    public async Task<TimeSpan> Track(Task task)
+    public Task<TimeSpan> Track(Func<Task> task)
     {
         var start = _dateTimeProvider.Now;
-        await task;
-        return _dateTimeProvider.Now - start;
+        return task.Invoke().Then(() => _dateTimeProvider.Now - start);
     }
 }

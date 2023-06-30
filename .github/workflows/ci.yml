@@ -27,7 +27,8 @@ jobs:
           dotnet test --logger "trx" \
             /p:CollectCoverage=true \
             /p:CoverletOutput=../coverage/ \
-            /p:CoverletOutputFormat=cobertura,json
+            /p:CoverletOutputFormat=\"cobertura,json\" \
+            -m:1
 
       - name: Upload Test Report
         if: success() || failure()
@@ -42,7 +43,7 @@ jobs:
         uses: irongut/CodeCoverageSummary@v1.3.0
         with:
           badge: true
-          filename: ./test/*/coverage.cobertura.xml
+          filename: ./test/coverage.cobertura.xml
           format: markdown
           output: both
       - name: Add Coverage PR Comment

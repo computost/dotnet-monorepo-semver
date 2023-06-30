@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.Build.Traversal/4.1.0">
   <ItemGroup>
-    <ProjectReference Include="src\**\*.*proj" />
+    <ProjectReference Include="**\*.*proj" />
   </ItemGroup>
   <PropertyGroup>
     <IncludeInSolutionFile>false</IncludeInSolutionFile>

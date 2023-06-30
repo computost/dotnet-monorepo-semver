@@ -1,3 +1,4 @@
-/src/**/bin
+/.vs
+/**/bin
 /**/obj
 **/*.sln

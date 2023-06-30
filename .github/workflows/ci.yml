@@ -16,7 +16,7 @@ jobs:
         with:
           dotnet-version: "6.0.x"
       - name: Test
-        run: dotnet test --logger "trx" /p:CollectCoverage=true /p:CoverletOutputFormat=lcov
+        run: dotnet test --logger "trx" /p:CollectCoverage=true /p:CoverletOutputFormat=lcov /p:CoverletOutput=../CoverageResults/lcov.info
       - name: Upload Test Report
         uses: dorny/test-reporter@v1
         if: success() || failure()
@@ -27,4 +27,4 @@ jobs:
       - name: Write Coverage Report
         uses: romeovs/lcov-reporter-action@v0.2.16
         with:
-          lcov-file: ./test/*/coverage.info
+          lcov-file: ./test/CoverageResults/lcov.info

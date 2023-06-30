@@ -1,7 +1,9 @@
 /.vs
 /nupkgs
 /src/**/bin
-/**/*.sln
-/**/*.sln.DotSettings.user
+/test/*/coverage.info
+/test/*/TestResults
 /**/bin
 /**/obj
+/**/*.sln
+/**/*.sln.DotSettings.user

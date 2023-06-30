@@ -6,7 +6,9 @@ env:
     LowLevel
 
 on:
-  push:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
     branches: [main]
 
 jobs:

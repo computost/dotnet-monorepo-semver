@@ -26,5 +26,5 @@ jobs:
           reporter: dotnet-trx
       - name: Write Coverage Report
         uses: romeovs/lcov-reporter-action@v0.2.16
-          with:
-            lcov-file: ./test/*/coverage.info
+        with:
+          lcov-file: ./test/*/coverage.info

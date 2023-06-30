@@ -9,6 +9,7 @@ on:
 jobs:
   ci:
     permissions:
+      actions: write
       pull-requests: write
     runs-on: ubuntu-latest
     steps:
@@ -20,13 +21,14 @@ jobs:
       - name: Test
         run: dotnet test --logger "trx" /p:CollectCoverage=true /p:CoverletOutputFormat=lcov /p:CoverletOutput=../CoverageResults/lcov.info
       - name: Upload Test Report
-        uses: dorny/test-reporter@v1
         if: success() || failure()
+        uses: dorny/test-reporter@v1
         with:
           name: test-results
           path: test/*.Tests/TestResults/*.trx
           reporter: dotnet-trx
       - name: Write Coverage Report
+        if: success() || failure()
         uses: romeovs/lcov-reporter-action@v0.2.16
         with:
           lcov-file: ./test/CoverageResults/lcov.info

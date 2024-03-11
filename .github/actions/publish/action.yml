@@ -20,7 +20,7 @@ runs:
       run: |
         dotnet nuget add source \
           --username "github-actions[bot]" \
-          --password ${{ inputs.GITHUB_TOKEN }} \
+          --password ${{ inputs.github-token }} \
           --store-password-in-clear-text \
           --name github "https://nuget.pkg.github.com/computost/index.json"
     - name: Install versionize

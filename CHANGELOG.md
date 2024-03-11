@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [versionize](https://github.com/versionize/versionize) for commit guidelines.
 
+<a name="2.6.4-alpha.1"></a>
+## [2.6.4-alpha.1](https://www.github.com/computost/dotnet-monorepo-semver/releases/tag/v2.6.4-alpha.1) (2024-03-11)
+
+### Bug Fixes
+
+* conditionally apply pre-release ([500fc9f](https://www.github.com/computost/dotnet-monorepo-semver/commit/500fc9f4eb0c83330cae010710530980e5c69cd0))
+
 <a name="2.6.4-alpha.0"></a>
 ## [2.6.4-alpha.0](https://www.github.com/computost/dotnet-monorepo-semver/releases/tag/v2.6.4-alpha.0) (2024-03-11)
 

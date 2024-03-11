@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [versionize](https://github.com/versionize/versionize) for commit guidelines.
 
+<a name="2.6.4-alpha.0"></a>
+## [2.6.4-alpha.0](https://www.github.com/computost/dotnet-monorepo-semver/releases/tag/v2.6.4-alpha.0) (2024-03-11)
+
+### Bug Fixes
+
+* checkout once during release pipeline ([4189685](https://www.github.com/computost/dotnet-monorepo-semver/commit/4189685f556475749b0e7cedbf40f0c711e2f92c))
+* handle pre-release versions when parsing assembly version ([9ca6de6](https://www.github.com/computost/dotnet-monorepo-semver/commit/9ca6de625b010fd68c8bd7fc1543bc188e038316))
+* use modulo to generate file version ([#2](https://www.github.com/computost/dotnet-monorepo-semver/issues/2)) ([c138296](https://www.github.com/computost/dotnet-monorepo-semver/commit/c138296469b5865ffc6bb8c8b8c5779ca7e26664))
+
+### Other
+
+* add tests and mutable provider ([6f79ea7](https://www.github.com/computost/dotnet-monorepo-semver/commit/6f79ea7e921c1763a33ce3031a9291f91f82ba1f))
+* fix action yml ([4144a30](https://www.github.com/computost/dotnet-monorepo-semver/commit/4144a30768792f672b3d817fdc759afb720ece08))
+* fix parameter name usage in publish action ([d5ba20a](https://www.github.com/computost/dotnet-monorepo-semver/commit/d5ba20a590af64e6112dc7db070edc371dfcbb5d))
+* fix publish action path ([c333efb](https://www.github.com/computost/dotnet-monorepo-semver/commit/c333efbaa71601c8e3a8443381987c67f35a2741))
+* pre-release version with alpha ([e2dfd30](https://www.github.com/computost/dotnet-monorepo-semver/commit/e2dfd3039aab2229941bb63b44271f00cef34e39))
+
 <a name="2.6.3"></a>
 ## [2.6.3](https://www.github.com/computost/dotnet-monorepo-semver/releases/tag/v2.6.3) (2023-6-29)
 

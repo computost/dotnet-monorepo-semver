@@ -1,0 +1,26 @@
+name: publish
+
+env:
+  PACKAGES: |
+    HighLevel
+    LowLevel
+
+on:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+    branches: [main]
+
+jobs:
+  alpha:
+    runs-on: ubuntu-latest
+    environment: alpha
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          sparse-checkout: .github/actions
+          sparse-checkout-cone-mode: false
+      - uses: ./.github/actions/publish
+        with:
+          pre-release: alpha

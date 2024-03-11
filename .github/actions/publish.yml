@@ -1,0 +1,44 @@
+name: 'Publish'
+inputs:
+  pre-release:
+    required: false
+runs:
+  runs-on: ubuntu-latest
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    - name: Configure git
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+    - name: Authenticate to GitHub Packages
+      run: |
+        dotnet nuget add source \
+          --username "github-actions[bot]" \
+          --password ${{ secrets.GITHUB_TOKEN }} \
+          --store-password-in-clear-text \
+          --name github "https://nuget.pkg.github.com/computost/index.json"
+    - name: Install versionize
+      run: dotnet tool install --global versionize
+
+    - name: Run versionize
+      continue-on-error: true
+      id: versionize
+      run: versionize --changelog-all --exit-insignificant-commits --pre-release ${{ pre-release }}
+
+    - name: No release required
+      if: steps.versionize.outcome != 'success'
+      run: echo "Skipping publishing. No release required."
+
+    - name: Pack NuGet packages
+      if: steps.versionize.outcome == 'success'
+      run: dotnet pack --output ${{ runner.temp }}/nupkgs --include-source --configuration Release --include-symbols
+    - name: Push NuGet packages
+      if: steps.versionize.outcome == 'success'
+      run: dotnet nuget push ${{ runner.temp }}/nupkgs/*.nupkg --source "github"
+
+    - name: Push changes to GitHub
+      if: steps.versionize.outcome == 'success'
+      run: git push --follow-tags

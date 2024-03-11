@@ -24,3 +24,4 @@ jobs:
       - uses: ./.github/actions/publish
         with:
           pre-release: alpha
+          github-token: ${{ secrets.GITHUB_TOKEN }}

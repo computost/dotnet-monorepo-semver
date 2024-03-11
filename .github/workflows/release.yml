@@ -23,3 +23,15 @@ jobs:
         with:
           pre-release: alpha
           github-token: ${{ secrets.GITHUB_TOKEN }}
+  beta:
+    needs: [alpha]
+    runs-on: ubuntu-latest
+    environment: beta
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: ./.github/actions/publish
+        with:
+          pre-release: beta
+          github-token: ${{ secrets.GITHUB_TOKEN }}

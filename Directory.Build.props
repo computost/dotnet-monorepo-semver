@@ -8,7 +8,7 @@
     <RepositoryUrl>https://github.com/computost/dotnet-monorepo-semver</RepositoryUrl>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <Version>2.6.3</Version>
-    <AssemblyVersion>$([System.Version]::Parse($(Version)).ToString(1)).0.0.0</AssemblyVersion>
+    <AssemblyVersion>$([System.Version]::Parse($(Version.Split('-')[0])).ToString(1)).0.0.0</AssemblyVersion>
   </PropertyGroup>
 
   <Choose>

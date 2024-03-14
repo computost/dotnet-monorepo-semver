@@ -31,7 +31,19 @@ runs:
       run: |
         prerelease=${{ inputs.pre-release }}
         [[ ! -z "$prerelease" ]] && params+=("--pre-release $prerelease")
-        versionize --changelog-all "${params[@]}"
+        error=$(versionize --changelog-all --pre-release alpha 2>&1 >/dev/null)
+        if [[ ! -z "$error" ]]
+        then
+          regex='Semantic versioning conflict: the next version ([0-9]+\.[0-9]+\.)([0-9]+)(-alpha\.0)'
+          if [[ $error =~ $regex ]]
+          then
+            versionize --changelog-all "${params[@]}" --release-as ${BASH_REMATCH[1]}$((${BASH_REMATCH[2]}+1))${BASH_REMATCH[3]}
+          else
+            echo "$error" 1>&2
+            exit 1
+          fi
+        fi
+
 
     - name: No release required
       if: steps.versionize.outcome != 'success'

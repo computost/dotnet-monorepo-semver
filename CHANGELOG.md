@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [versionize](https://github.com/versionize/versionize) for commit guidelines.
 
+<a name="2.6.4-beta.0"></a>
+## [2.6.4-beta.0](https://www.github.com/computost/dotnet-monorepo-semver/releases/tag/v2.6.4-beta.0) (2024-03-21)
+
+### Features
+
+* added ConstantDateTimeProvider ([fb683dc](https://www.github.com/computost/dotnet-monorepo-semver/commit/fb683dc540cae6de5101cdfbbc5eac9f832c3105))
+* added Today ([e47b89c](https://www.github.com/computost/dotnet-monorepo-semver/commit/e47b89c8d6257a2968584a2a5327ba31a4ab774f))
+* initial project setup ([6731cab](https://www.github.com/computost/dotnet-monorepo-semver/commit/6731cab52ac283b894cb13bcfddbb5a3e42f6da2))
+
+### Bug Fixes
+
+* add assembly and file versions ([4d1f564](https://www.github.com/computost/dotnet-monorepo-semver/commit/4d1f564dad06be83d574714ddb19354e12ce972d))
+* add versionize as tool ([b3ac2d0](https://www.github.com/computost/dotnet-monorepo-semver/commit/b3ac2d0f2f7f1e97de9872c04a5bae23c73b2e1b))
+* Build package ([794bc8a](https://www.github.com/computost/dotnet-monorepo-semver/commit/794bc8ac5de1e6cbe25f2a0b2a7fd491d88d7f7a))
+* checkout once during release pipeline ([4189685](https://www.github.com/computost/dotnet-monorepo-semver/commit/4189685f556475749b0e7cedbf40f0c711e2f92c))
+* conditionally apply pre-release ([500fc9f](https://www.github.com/computost/dotnet-monorepo-semver/commit/500fc9f4eb0c83330cae010710530980e5c69cd0))
+* handle pre-release versions when parsing assembly version ([9ca6de6](https://www.github.com/computost/dotnet-monorepo-semver/commit/9ca6de625b010fd68c8bd7fc1543bc188e038316))
+* publish packages ([9e20625](https://www.github.com/computost/dotnet-monorepo-semver/commit/9e20625d4b5e22bf8cd4454f3af62bc465c012d6))
+* restore beta version ([043337b](https://www.github.com/computost/dotnet-monorepo-semver/commit/043337b2e911d25e098135241ea94b59910141b5))
+* test fix update ([02c7722](https://www.github.com/computost/dotnet-monorepo-semver/commit/02c7722dc0f719876b872875011de4defb1945b9))
+* use modulo to generate file version ([#2](https://www.github.com/computost/dotnet-monorepo-semver/issues/2)) ([c138296](https://www.github.com/computost/dotnet-monorepo-semver/commit/c138296469b5865ffc6bb8c8b8c5779ca7e26664))
+
 <a name="2.6.4-alpha.4"></a>
 ## [2.6.4-alpha.4](https://www.github.com/computost/dotnet-monorepo-semver/releases/tag/v2.6.4-alpha.4) (2024-03-14)
 

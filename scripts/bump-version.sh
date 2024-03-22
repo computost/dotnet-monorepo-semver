@@ -22,6 +22,7 @@ then
   git commit -m 'chore: pre-versionize'
   dotnet versionize --pre-release alpha --find-release-commit-via-message
 elif [ "$bump_type" = "beta" ]
+then
   dotnet versionize --pre-release beta
 else
   dotnet versionise --aggregate-pre-releases

@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [versionize](https://github.com/versionize/versionize) for commit guidelines.
 
+<a name="2.7.0-alpha.2"></a>
+## [2.7.0-alpha.2](https://www.github.com/computost/dotnet-monorepo-semver/releases/tag/v2.7.0-alpha.2) (2024-03-21)
+
+### Features
+
+* created bump-version script ([65f98b4](https://www.github.com/computost/dotnet-monorepo-semver/commit/65f98b43c3ba52f13dc37afbe6ee14cde3198afc))
+
+### Bug Fixes
+
+* added then ([fc5e963](https://www.github.com/computost/dotnet-monorepo-semver/commit/fc5e9636978b5365205db70f893a7344d7c79de7))
+* bump ([cb496e4](https://www.github.com/computost/dotnet-monorepo-semver/commit/cb496e464d7e5fae2c430c27b2c6a679b509d789))
+* started bump-version script ([91082f6](https://www.github.com/computost/dotnet-monorepo-semver/commit/91082f63ef7280d578b6cafda46658be5dce38f9))
+* use release via commit message for beta as well ([ef9ca3b](https://www.github.com/computost/dotnet-monorepo-semver/commit/ef9ca3be5f9b4304c84927bf025c2c808be73514))
+
 <a name="2.6.4"></a>
 ## [2.6.4](https://www.github.com/computost/dotnet-monorepo-semver/releases/tag/v2.6.4) (2024-03-21)
 

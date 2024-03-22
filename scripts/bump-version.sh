@@ -23,7 +23,7 @@ then
   dotnet versionize --pre-release alpha --find-release-commit-via-message
 elif [ "$bump_type" = "beta" ]
 then
-  dotnet versionize --pre-release beta --find-release-commit-via-message
+  dotnet versionize --pre-release beta --aggregate-pre-releases --find-release-commit-via-message
 else
   dotnet versionise --aggregate-pre-releases
 fi

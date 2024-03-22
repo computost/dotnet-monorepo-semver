@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file. See [versionize](https://github.com/versionize/versionize) for commit guidelines.
 
+<a name="2.7.0-alpha.3"></a>
+## [2.7.0-alpha.3](https://www.github.com/computost/dotnet-monorepo-semver/releases/tag/v2.7.0-alpha.3) (2024-03-21)
+
 <a name="2.7.0-alpha.2"></a>
 ## [2.7.0-alpha.2](https://www.github.com/computost/dotnet-monorepo-semver/releases/tag/v2.7.0-alpha.2) (2024-03-21)
 

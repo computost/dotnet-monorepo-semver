@@ -1,6 +1,7 @@
 bump_type=$1
 if [ "$bump_type" = 'alpha' ]
 then
+  echo "alpha bump"
   version=$(
     echo $(
       git describe --tags $(

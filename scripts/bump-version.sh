@@ -32,5 +32,5 @@ then
     --aggregate-pre-releases \
     --find-release-commit-via-message
 else
-  dotnet versionise --aggregate-pre-releases
+  dotnet versionize --aggregate-pre-releases
 fi

@@ -21,10 +21,16 @@ then
   sed -i -e "s/<Version>[^<]*/<Version>$version/g" ./Directory.Build.props
   git add .
   git commit -m 'chore: pre-versionize'
-  dotnet versionize --pre-release alpha --find-release-commit-via-message
+  dotnet versionize \
+    --pre-release alpha \
+    --find-release-commit-via-message
 elif [ "$bump_type" = "beta" ]
 then
-  dotnet versionize --pre-release beta --aggregate-pre-releases --find-release-commit-via-message
+  echo "beta bump"
+  dotnet versionize \
+    --pre-release beta \
+    --aggregate-pre-releases \
+    --find-release-commit-via-message
 else
   dotnet versionise --aggregate-pre-releases
 fi

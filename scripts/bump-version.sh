@@ -32,5 +32,7 @@ then
     --aggregate-pre-releases \
     --find-release-commit-via-message
 else
-  dotnet versionize --aggregate-pre-releases
+  dotnet versionize \
+    --aggregate-pre-releases \
+    --find-release-commit-via-message
 fi

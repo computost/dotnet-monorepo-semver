@@ -92,6 +92,17 @@ remove_pre_release() {
   echo $version | sed -rn 's/-[a-z]+\.[0-9]+//p'
 }
 
+checkout_temp_branch() {
+  temp_index=0
+  while git rev-parse --verify "temp_$temp_index" >/dev/null 2>&1
+  do
+    temp_index=$((temp_index + 1))
+  done
+  git checkout -b "temp_$temp_index" --quiet
+}
+
+checkout_temp_branch
+
 bump_type=$1
 if [ "$bump_type" = 'alpha' ]
 then
@@ -103,14 +114,15 @@ then
 
   set_build_props_version $current_version
   git add .
-  git commit --allow-empty -m 'chore: pre-versionize' --quiet
+  git commit --allow-empty --message 'chore: pre-versionize' --quiet
+
   dotnet versionize \
     --find-release-commit-via-message \
     --pre-release alpha \
     --silent \
     --skip-tag
   tentative_version=$(dotnet versionize inspect)
-  git reset --hard HEAD~2
+  git reset --hard HEAD~2 --quiet
 
   last_general_release=$(get_last_general_release)
   if [ $(get_version_part_diff $tentative_version $last_general_release major) -gt 1 ] \
@@ -139,3 +151,5 @@ else
     --release-as $(remove_pre_release $current_version) \
     --aggregate-pre-releases
 fi
+
+git branch -m "release/v$(dotnet versionize inspect)"

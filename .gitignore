@@ -7,3 +7,6 @@
 /**/obj
 /**/*.sln
 /**/*.sln.DotSettings.user
+
+# bash test artifacts
+/test-artifacts

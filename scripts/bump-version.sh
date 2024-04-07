@@ -113,17 +113,12 @@ then
   git reset --hard HEAD~2
 
   last_general_release=$(get_last_general_release)
-  echo "tentative version: $tentative_version"
-  echo "last_general_release: $last_general_release"
-  echo "major diff: $(get_version_part_diff $tentative_version $last_general_release major)"
-  echo "minor diff: $(get_version_part_diff $tentative_version $last_general_release minor)"
   if [ $(get_version_part_diff $tentative_version $last_general_release major) -gt 1 ] \
     || ([ $(get_version_part_diff $tentative_version $last_general_release major) -eq 1 ] \
       && [ $(get_version_part $tentative_version minor) -gt 0 ]) \
     || ([ $(get_version_part_diff $tentative_version $last_general_release major) -eq 0 ] \
       && [ $(get_version_part_diff $tentative_version $last_general_release minor) -gt 1 ])
   then
-    echo 'getting next patch version instead'
     new_version=$(get_next_patch_version $current_version)
   else
     new_version=$tentative_version

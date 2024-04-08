@@ -11,27 +11,58 @@ on:
     types: [completed]
     branches: [main]
 
+concurrency:
+  group: release
+
 jobs:
   alpha:
     runs-on: ubuntu-latest
     environment: alpha
+    outputs:
+      branch-name: ${{ steps.publish.outputs.branch-name }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - uses: ./.github/actions/publish
+        id: publish
         with:
           pre-release: alpha
           github-token: ${{ secrets.GITHUB_TOKEN }}
+
   beta:
     needs: [alpha]
     runs-on: ubuntu-latest
     environment: beta
+    outputs:
+      branch-name: ${{ steps.publish.outputs.branch-name }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          ref: ${{ needs.alpha.outputs.branch-name }}
       - uses: ./.github/actions/publish
+        id: publish
         with:
           pre-release: beta
           github-token: ${{ secrets.GITHUB_TOKEN }}
+  
+  general:
+    needs: [beta]
+    runs-on: ubuntu-latest
+    environment: general
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ needs.beta.outputs.branch-name }}
+      - uses: ./.github/actions/publish
+        id: publish
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Merge back into main
+        run: |
+          git checkout main
+          git merge ${{ steps.publish.outputs.branch-name }} \
+            -m 'chore: merge general release'
+          git push

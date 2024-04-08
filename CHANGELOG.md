@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [versionize](https://github.com/versionize/versionize) for commit guidelines.
 
+<a name="2.7.0-beta.0"></a>
+## [2.7.0-beta.0](https://www.github.com/computost/dotnet-monorepo-semver/releases/tag/v2.7.0-beta.0) (2024-04-08)
+
+### Features
+
+* versionize revamp ([#3](https://www.github.com/computost/dotnet-monorepo-semver/issues/3)) ([4f40d97](https://www.github.com/computost/dotnet-monorepo-semver/commit/4f40d97751f01dbde59450e6e8394ab4965707aa))
+
+### Bug Fixes
+
+* add shell ([42e0365](https://www.github.com/computost/dotnet-monorepo-semver/commit/42e0365dedb63f86d499e865a2f9b828793176cd))
+* checkout once during release pipeline ([4189685](https://www.github.com/computost/dotnet-monorepo-semver/commit/4189685f556475749b0e7cedbf40f0c711e2f92c))
+* conditionally apply pre-release ([500fc9f](https://www.github.com/computost/dotnet-monorepo-semver/commit/500fc9f4eb0c83330cae010710530980e5c69cd0))
+* handle pre-release versions when parsing assembly version ([9ca6de6](https://www.github.com/computost/dotnet-monorepo-semver/commit/9ca6de625b010fd68c8bd7fc1543bc188e038316))
+* install versionize ([365fa80](https://www.github.com/computost/dotnet-monorepo-semver/commit/365fa80120d8142eed87507882ac1fec660cac52))
+* test fix update ([02c7722](https://www.github.com/computost/dotnet-monorepo-semver/commit/02c7722dc0f719876b872875011de4defb1945b9))
+* use modulo to generate file version ([#2](https://www.github.com/computost/dotnet-monorepo-semver/issues/2)) ([c138296](https://www.github.com/computost/dotnet-monorepo-semver/commit/c138296469b5865ffc6bb8c8b8c5779ca7e26664))
+
 <a name="2.7.0-alpha.0"></a>
 ## [2.7.0-alpha.0](https://www.github.com/computost/dotnet-monorepo-semver/releases/tag/v2.7.0-alpha.0) (2024-04-08)
 

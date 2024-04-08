@@ -27,6 +27,7 @@ runs:
     
     - name: Install versionize
       run: dotnet tool restore
+      shell: bash
 
     - name: Bump version
       continue-on-error: true

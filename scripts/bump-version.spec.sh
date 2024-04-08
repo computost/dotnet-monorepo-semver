@@ -8,9 +8,11 @@ function main() {
   abort_alpha_new_alpha
   abort_beta_new_alpha
 
-  abort_alpha_add_feat_new_alpha
+  abort_alpha_commit_feat_new_alpha
   commit_feat_abort_alpha_commit_feat_new_alpha
-  abort_alpha_add_feat_abort_beta_add_feat_new_alpha
+  commit_feat_abort_beta_commit_feat_new_alpha
+  commit_breaking_abort_beta_commit_breaking_new_alpha
+  commit_breaking_abort_beta_commit_feat_new_alpha
 
   cleanup_tests
 }
@@ -53,7 +55,7 @@ function abort_beta_new_alpha {
   expect_version '0.0.2-alpha.0'
 }
 
-function abort_alpha_add_feat_new_alpha {
+function abort_alpha_commit_feat_new_alpha {
   setup_test
   commit 'fix: bump'
   bump_version 'alpha' # 0.0.1-alpha.0
@@ -73,7 +75,7 @@ function commit_feat_abort_alpha_commit_feat_new_alpha {
   expect_version '0.1.0-alpha.1'
 }
 
-function abort_alpha_add_feat_abort_beta_add_feat_new_alpha {
+function commit_feat_abort_beta_commit_feat_new_alpha {
   setup_test
   commit 'fix: bump'
   bump_version 'alpha' # 0.0.1-alpha.0
@@ -85,7 +87,28 @@ function abort_alpha_add_feat_abort_beta_add_feat_new_alpha {
   commit 'feat: bump'
   bump_version 'alpha'
   expect_version '0.1.1-alpha.0'
+}
 
+function commit_breaking_abort_beta_commit_breaking_new_alpha {
+  setup_test
+  commit 'feat!: bump'
+  bump_version 'alpha' # 1.0.0-alpha.0
+  bump_version 'beta' # 1.0.0-beta.0
+  git checkout main
+  commit 'feat!: bump'
+  bump_version 'alpha' # 1.0.1-alpha.0
+  expect_version '1.0.1-alpha.0'
+}
+
+function commit_breaking_abort_beta_commit_feat_new_alpha {
+  setup_test
+  commit 'feat!: bump'
+  bump_version 'alpha' # 1.0.0-alpha.0
+  bump_version 'beta' # 1.0.0-beta.0
+  git checkout main
+  commit 'feat: bump'
+  bump_version 'alpha' # 1.0.1-alpha.0
+  expect_version '1.0.1-alpha.0'
 }
 
 BOLD_BLUE='\033[1;34m'
@@ -121,8 +144,8 @@ function setup_test {
   mkdir "$test_dir/scripts"
   cp "$script_path/bump-version.sh" "$test_dir/scripts"
   git add .
-  git commit --message 'initialized repo' --quiet
-  dotnet versionize --release-as "0.0.0" --silent
+  git commit --message "chore(release): $start_version" --quiet
+  git tag "v$start_version"
 }
 
 function commit {

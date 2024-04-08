@@ -24,6 +24,9 @@ runs:
           --password ${{ inputs.github-token }} \
           --store-password-in-clear-text \
           --name github "https://nuget.pkg.github.com/computost/index.json"
+    
+    - name: Install versionize
+      run: dotnet tool restore
 
     - name: Bump version
       continue-on-error: true

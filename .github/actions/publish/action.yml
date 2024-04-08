@@ -4,6 +4,9 @@ inputs:
     required: false
   github-token:
     required: true
+outputs:
+  branch-name:
+    value: ${{ steps.output-branch.outputs.branch }}
 runs:
   using: "composite"
   steps:
@@ -12,6 +15,7 @@ runs:
       run: |
         git config user.name "github-actions[bot]"
         git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
     - name: Authenticate to GitHub Packages
       shell: bash
       run: |
@@ -20,46 +24,35 @@ runs:
           --password ${{ inputs.github-token }} \
           --store-password-in-clear-text \
           --name github "https://nuget.pkg.github.com/computost/index.json"
-    - name: Install versionize
-      shell: bash
-      run: dotnet tool install --global versionize
 
-    - name: Run versionize
+    - name: Bump version
       continue-on-error: true
       id: versionize
       shell: bash
-      run: |
-        prerelease=${{ inputs.pre-release }}
-        [[ ! -z "$prerelease" ]] && params+=("--pre-release $prerelease")
-        error=$(versionize --changelog-all --pre-release alpha 2>&1 >/dev/null)
-        if [[ ! -z "$error" ]]
-        then
-          regex='Semantic versioning conflict: the next version ([0-9]+\.[0-9]+\.)([0-9]+)(-alpha\.0)'
-          if [[ $error =~ $regex ]]
-          then
-            versionize --changelog-all "${params[@]}" --release-as ${BASH_REMATCH[1]}$((${BASH_REMATCH[2]}+1))${BASH_REMATCH[3]}
-          else
-            echo "$error" 1>&2
-            exit 1
-          fi
-        fi
-
+      run: ./scripts/bump-version.sh ${{ inputs.pre-release }}
 
     - name: No release required
       if: steps.versionize.outcome != 'success'
       shell: bash
       run: echo "Skipping publishing. No release required."
 
+    - name: Push release branch
+      if: steps.versionize.outcome == 'success'
+      shell: bash
+      run: git push --follow-tags -u origin HEAD
+
     - name: Pack NuGet packages
       if: steps.versionize.outcome == 'success'
       run: dotnet pack --output ${{ runner.temp }}/nupkgs --include-source --configuration Release --include-symbols
       shell: bash
+
     - name: Push NuGet packages
       if: steps.versionize.outcome == 'success'
       run: dotnet nuget push ${{ runner.temp }}/nupkgs/*.nupkg --source "github"
       shell: bash
-
-    - name: Push changes to GitHub
+    
+    - name: Output new git branch
       if: steps.versionize.outcome == 'success'
+      id: output-branch
       shell: bash
-      run: git push --follow-tags
+      run: echo "branch=$(git rev-parse --abbrev-ref HEAD)" >> "$GITHUB_OUTPUT"

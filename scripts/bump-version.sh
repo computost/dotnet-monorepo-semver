@@ -1,4 +1,4 @@
-set_build_props_version() {
+function set_build_props_version {
   version=$1
 
   sed -i "s/<Version>[^<]*/<Version>$(
@@ -9,7 +9,7 @@ set_build_props_version() {
     ./Directory.Build.props
 }
 
-get_last_general_release() {
+function get_last_general_release {
   for tag in $(git tag --sort=-refname)
   do
     if [[ $tag =~ ^v([0-9]+\.){2}[0-9]+$ ]]
@@ -20,29 +20,34 @@ get_last_general_release() {
   done
 }
 
-get_version_part() {
+function get_version_part {
   version="$1"
   part="$2"
 
   case $part in
     major)
       echo $version |
-        sed -rn 's/^v?([[:digit:]]+).*$/\1/p'
+        sed -rn 's/^v?([0-9]+).*$/\1/p'
       ;;
 
     minor)
       echo $version |
-        sed -rn 's/^v?[[:digit:]]+\.([[:digit:]]+).*$/\1/p'
+        sed -rn 's/^v?[0-9]+\.([0-9]+).*$/\1/p'
       ;;
 
     patch)
       echo $version |
-        sed -rn 's/^v?([[:digit:]]+\.){2}([[:digit:]]+).*$/\2/p'
+        sed -rn 's/^v?([0-9]+\.){2}([0-9]+).*$/\2/p'
       ;;
 
     prerelease)
       echo $version |
-        sed -rn 's/^v?([[:digit:]]+\.){2}[[:digit:]]+-(.+)$/\2/p'
+        sed -rn 's/^v?([0-9]+\.){2}[0-9]+-(.+)$/\2/p'
+      ;;
+
+    prerelease_number)
+      echo $version |
+        sed -rn 's/^v?([0-9]+\.){2}[0-9]+-[^.]+\.([0-9]+)$/\2/p'
       ;;
 
     *)
@@ -51,7 +56,7 @@ get_version_part() {
   esac
 }
 
-get_version_part_diff() {
+function get_version_part_diff {
   version_1=$1
   version_2=$2
   part=$3
@@ -61,38 +66,27 @@ get_version_part_diff() {
     - $(get_version_part $version_2 $part)))"
 }
 
-get_next_patch_version() {
+function get_next_alpha_version {
   version=$1
 
-  current_directory=$(pwd)
-  temp_repo="${RUNNER_TEMP:-.}/temp_repo"
-  mkdir $temp_repo
-  cp ./Directory.Build.props $temp_repo
-  cd $temp_repo
-  git init --quiet
-  git config user.name temp
-  git config user.email temp
-  set_build_props_version $version
-  git add .
-  git commit -m 'chore: init' --quiet
-  dotnet versionize --silent --skip-tag
-  git commit --allow-empty -m 'fix: bump' --quiet
-  dotnet versionize \
-    --find-release-commit-via-message \
-    --pre-release alpha \
-    --silent \
-    --skip-tag
-  echo $(dotnet versionize inspect)
-  cd $current_directory
-  rm -rf $temp_repo
+  major=$(get_version_part $version 'major')
+  minor=$(get_version_part $version 'minor')
+  patch=$(get_version_part $version 'patch')
+  if [[ $version =~ -alpha\.[0-9]+$ ]]
+  then
+    alpha=$(get_version_part $version 'prerelease_number')
+    echo "$major.$minor.$patch-alpha.$((alpha + 1))"
+  else
+    echo "$major.$minor.$((patch + 1))-alpha.0"
+  fi
 }
 
-remove_pre_release() {
+function remove_pre_release {
   version=$1
   echo $version | sed -rn 's/-[a-z]+\.[0-9]+//p'
 }
 
-checkout_temp_branch() {
+function checkout_temp_branch {
   temp_index=0
   while git rev-parse --verify "temp_$temp_index" >/dev/null 2>&1
   do
@@ -131,7 +125,7 @@ then
     || ([ $(get_version_part_diff $tentative_version $last_general_release major) -eq 0 ] \
       && [ $(get_version_part_diff $tentative_version $last_general_release minor) -gt 1 ])
   then
-    new_version=$(get_next_patch_version $current_version)
+    new_version=$(get_next_alpha_version $current_version)
   else
     new_version=$tentative_version
   fi

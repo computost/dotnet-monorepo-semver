@@ -77,9 +77,6 @@ function commit_feat_abort_alpha_commit_feat_new_alpha {
 
 function commit_feat_abort_beta_commit_feat_new_alpha {
   setup_test
-  commit 'fix: bump'
-  bump_version 'alpha' # 0.0.1-alpha.0
-  git checkout main
   commit 'feat: bump'
   bump_version 'alpha' # 0.1.0-alpha.0
   bump_version 'beta' # 0.1.0-beta.0

@@ -1,4 +1,4 @@
-function main() {
+function main {
   rm --force --recursive $test_artifacts_dir
 
   simple_alpha
@@ -17,14 +17,14 @@ function main() {
   cleanup_tests
 }
 
-function simple_alpha() {
+function simple_alpha {
   setup_test
   commit 'fix: bump'
   bump_version 'alpha'
   expect_version '0.0.1-alpha.0'
 }
 
-function simple_beta() {
+function simple_beta {
   setup_test '0.0.1-alpha.0'
   bump_version 'beta'
   expect_version '0.0.1-beta.0'

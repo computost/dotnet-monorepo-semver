@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [versionize](https://github.com/versionize/versionize) for commit guidelines.
 
+<a name="2.8.0-beta.0"></a>
+## [2.8.0-beta.0](https://www.github.com/computost/dotnet-monorepo-semver/releases/tag/v2.8.0-beta.0) (2024-04-13)
+
+### Features
+
+* bump ([3e7900a](https://www.github.com/computost/dotnet-monorepo-semver/commit/3e7900aa2e0db7fe78c58d30f401959c8df035e6))
+
 <a name="2.8.0-alpha.0"></a>
 ## [2.8.0-alpha.0](https://www.github.com/computost/dotnet-monorepo-semver/releases/tag/v2.8.0-alpha.0) (2024-04-13)
 
